@@ -17,13 +17,10 @@
   <body class="dark">
     <div id="root"></div>
     
-    <!-- FIXED: Removed the leading slash to make the path relative so Vite parses it correctly on GitHub Pages -->
-    <script type="module" src="src/main.tsx"></script>
+    <!-- 1. RESTORED: Absolute leading slash so Vite's compiler can track your project entry file correctly -->
+    <script type="module" src="/src/main.tsx"></script>
     
-    <script
-      defer
-      src="%VITE_ANALYTICS_ENDPOINT%/umami"
-      data-website-id="%VITE_ANALYTICS_WEBSITE_ID%"></script>
+    <!-- 2. REMOVED OR HARDCODED: Removed broken % variables that trigger the 400 error. If you use Umami, replace it with your real URL string here. -->
   </body>
 
 </html>
