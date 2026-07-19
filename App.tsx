@@ -8,14 +8,14 @@ import Home from "./pages/Home";
 
 function Router() {
   return (
-    /* 
-      FIXED: Removed the invalid `hook={useHashLocation}` setup.
-      Instead, we use Wouter's base prop pointing to your GitHub repository folder name. 
-      This allows Wouter to understand URLs like /ali7usse1n-coffee/ natively without crashing!
-    */
     <WouterRouter base="/ali7usse1n-coffee">
       <Switch>
-        <Route path="/" component={Home} />
+        {/* 
+          FIXED: Changed path="/" to path="" 
+          Wouter interprets a completely empty string relative to the base 
+          as the true home index, preventing fallback mismatches on clean URLs.
+        */}
+        <Route path="" component={Home} />
         <Route path="/404" component={NotFound} />
         
         {/* Final fallback wildcard route */}
