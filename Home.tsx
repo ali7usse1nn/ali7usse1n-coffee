@@ -27,10 +27,11 @@ export default function Home() {
   };
 
   return (
-    <div dir="rtl" className="min-h-screen bg-background text-foreground flex flex-col font-sans">
+    /* FIXED: Explicitly added native fallback dark styling (bg-[#0C0A09] text-[#FAFAF8]) to guarantee visibility if theme classes fail to initialize */
+    <div dir="rtl" className="min-h-screen bg-[#0C0A09] bg-background text-[#FAFAF8] text-foreground flex flex-col font-sans">
       {/* Header - Compact */}
-      <header className="bg-background/80 backdrop-blur-md border-b border-primary/20 py-3 flex-shrink-0">
-        <div className="container flex items-center justify-between">
+      <header className="bg-[#0C0A09]/80 bg-background/80 backdrop-blur-md border-b border-primary/20 py-3 flex-shrink-0">
+        <div className="container mx-auto px-4 flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-full border-2 border-primary flex items-center justify-center flex-shrink-0">
@@ -58,7 +59,7 @@ export default function Home() {
         {/* Mobile Menu */}
         {isMenuOpen && (
           <div className="border-t border-primary/20 bg-card/50 backdrop-blur-sm">
-            <div className="container py-3 space-y-2 text-sm text-right">
+            <div className="container mx-auto px-4 py-3 space-y-2 text-sm text-right">
               <button onClick={handleMenuDownload} className="block w-full text-right py-1 text-foreground hover:text-primary transition-colors">
                 منيو الكافي
               </button>
@@ -74,7 +75,7 @@ export default function Home() {
       </header>
 
       {/* Main Content - Single Screen */}
-      <main className="container flex-1 flex flex-col justify-center py-4 overflow-hidden">
+      <main className="container mx-auto px-4 flex-1 flex flex-col justify-center py-4 overflow-hidden">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center h-full">
           {/* Left Side - Logo & Branding */}
           <div className="flex flex-col items-center justify-center space-y-4 animate-fade-in">
@@ -123,7 +124,7 @@ export default function Home() {
 
           {/* Right Side - Daily Offer Card */}
           <div className="flex justify-center animate-fade-in" style={{ animationDelay: "0.2s" }}>
-            <div className="luxury-card w-full max-w-sm overflow-hidden rounded-xl border border-primary/10 shadow-xl">
+            <div className="luxury-card w-full max-w-sm overflow-hidden rounded-xl border border-primary/10 shadow-xl bg-card">
               {/* Image */}
               <div className="relative h-48 lg:h-56 overflow-hidden bg-gradient-to-b from-black/20 to-black/40">
                 <img
@@ -144,7 +145,7 @@ export default function Home() {
               </div>
 
               {/* Content */}
-              <div className="p-4 lg:p-6 bg-card">
+              <div className="p-4 lg:p-6 bg-[#1C1917] bg-card">
                 {/* Offer Label */}
                 <div className="flex items-center justify-center gap-2 mb-3">
                   <div className="h-px w-6 bg-primary/40"></div>
