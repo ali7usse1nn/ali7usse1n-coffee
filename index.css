@@ -3,7 +3,7 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* Tailwind v4 Configuration Variable Theme Map */
+/* Tailwind v4 Theme Map Configuration */
 @theme {
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -44,6 +44,10 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Native theme animation tracking for Tailwind v4 */
+  --animate-fade-in: fadeIn 0.6s ease-out forwards;
+  --animate-pulse-soft: pulse-soft 2s ease-in-out infinite;
 }
 
 :root {
@@ -84,7 +88,6 @@
 }
 
 .dark {
-  /* Dark theme setup */
   --primary: oklch(0.55 0.15 45);
   --primary-foreground: oklch(0.95 0.01 0);
   --sidebar-primary: oklch(0.55 0.15 45);
@@ -119,7 +122,7 @@
   --sidebar-ring: oklch(0.55 0.15 45);
 }
 
-/* Global Root Animation Keyframes */
+/* Global Animation Keyframes */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -132,105 +135,85 @@
 }
 
 @keyframes pulse-soft {
-  0%, 100% {
-    opacity: 0.8;
-  }
-  50% {
-    opacity: 1;
-  }
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 1; }
 }
 
-@layer base {
-  * {
-    /* Fixed variant call consistency for shadcn setups */
-    border-color: var(--border);
-  }
-  body {
-    background-color: var(--background);
-    color: var(--foreground);
-    font-family: 'Lora', serif;
-  }
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'Playfair Display', serif;
-    font-weight: 700;
-  }
-  button:not(:disabled),
-  [role="button"]:not([aria-disabled="true"]),
-  [type="button"]:not(:disabled),
-  [type="submit"]:not(:disabled),
-  [type="reset"]:not(:disabled),
-  a[href],
-  select:not(:disabled),
-  input[type="checkbox"]:not(:disabled),
-  input[type="radio"]:not(:disabled) {
-    cursor: pointer;
-  }
+/* Base Styles (Plain CSS overrides in Tailwind v4) */
+* {
+  border-color: var(--border);
+}
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: 'Lora', serif;
+}
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+}
+button:not(:disabled),
+[role="button"]:not([aria-disabled="true"]),
+[type="button"]:not(:disabled),
+[type="submit"]:not(:disabled),
+[type="reset"]:not(:disabled),
+a[href],
+select:not(:disabled),
+input[type="checkbox"]:not(:disabled),
+input[type="radio"]:not(:disabled) {
+  cursor: pointer;
 }
 
-@layer components {
-  .container {
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-
-  .flex {
-    min-height: 0;
-    min-width: 0;
-  }
-
-  .divider-line {
-    height: 1px;
-    background-color: color-mix(in oklch, var(--primary) 30%, transparent);
-  }
-
-  .divider-accent {
-    width: 0.5rem;
-    height: 0.5rem;
-    border-radius: 9999px;
-    background-color: var(--primary);
-    margin-left: 0.5rem;
-    margin-right: 0.5rem;
-  }
-
-  .luxury-card {
-    background-color: var(--card);
-    border-radius: var(--radius);
-    overflow: hidden;
-    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  }
+/* Custom Components using Tailwind v4 @utility directive */
+@utility container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
   
-  .luxury-card:hover {
+  @media (min-width: 640px) {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+  @media (min-width: 1024px) {
+    padding-left: 2rem;
+    padding-right: 2rem;
+    max-width: 1280px;
+  }
+}
+
+@utility flex {
+  min-height: 0;
+  min-width: 0;
+}
+
+@utility divider-line {
+  height: 1px;
+  background-color: color-mix(in oklch, var(--primary) 30%, transparent);
+}
+
+@utility divider-accent {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 9999px;
+  background-color: var(--primary);
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+@utility luxury-card {
+  background-color: var(--card);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  &:hover {
     box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
   }
+}
 
-  .text-gold {
-    color: var(--primary);
-  }
-
-  .animate-fade-in {
-    animation: fadeIn 0.6s ease-out forwards;
-  }
-
-  .animate-pulse-soft {
-    animation: pulse-soft 2s ease-in-out infinite;
-  }
-
-  @media (min-width: 640px) {
-    .container {
-      padding-left: 1.5rem;
-      padding-right: 1.5rem;
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .container {
-      padding-left: 2rem;
-      padding-right: 2rem;
-      max-width: 1280px;
-    }
-  }
+@utility text-gold {
+  color: var(--primary);
 }
