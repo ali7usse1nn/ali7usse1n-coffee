@@ -2,15 +2,18 @@ import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound"; 
 import { Route, Switch, Router as WouterRouter } from "wouter";
-import { useHashLocation } from "wouter/use-hash-location";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
 
 function Router() {
   return (
-    // Wrapping Switch in a Router using useHashLocation makes paths safe for GitHub Pages
-    <WouterRouter hook={useHashLocation}>
+    /* 
+      FIXED: Removed the invalid `hook={useHashLocation}` setup.
+      Instead, we use Wouter's base prop pointing to your GitHub repository folder name. 
+      This allows Wouter to understand URLs like /ali7usse1n-coffee/ natively without crashing!
+    */
+    <WouterRouter base="/ali7usse1n-coffee">
       <Switch>
         <Route path="/" component={Home} />
         <Route path="/404" component={NotFound} />
