@@ -17,10 +17,8 @@
   <body class="dark">
     <div id="root"></div>
     
-    <!-- 1. RESTORED: Absolute leading slash so Vite's compiler can track your project entry file correctly -->
-    <script type="module" src="/src/main.tsx"></script>
-    
-    <!-- 2. REMOVED OR HARDCODED: Removed broken % variables that trigger the 400 error. If you use Umami, replace it with your real URL string here. -->
+    <!-- FIXED: Made path relative to the root directory so Vite compiles correctly on GitHub Pages subfolders -->
+    <script type="module" src="src/main.tsx"></script>
   </body>
 
 </html>
