@@ -15,12 +15,18 @@ export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleMenuDownload = () => {
-    // Open PDF in new tab
-    window.open("/manus-storage/coffee_menu_99575bcf.pdf", "_blank");
+    // Dynamic base path prevents breaking paths on GitHub sub-folders
+    const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+    window.open(`${base}/manus-storage/coffee_menu_99575bcf.pdf`, "_blank");
+  };
+
+  // Safely prepends base folder paths to images
+  const assetPath = (path: string) => {
+    const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+    return `${base}${path}`;
   };
 
   return (
-    // Added dir="rtl" to support proper Arabic text flow and alignment
     <div dir="rtl" className="min-h-screen bg-background text-foreground flex flex-col font-sans">
       {/* Header - Compact */}
       <header className="bg-background/80 backdrop-blur-md border-b border-primary/20 py-3 flex-shrink-0">
@@ -53,7 +59,7 @@ export default function Home() {
         {isMenuOpen && (
           <div className="border-t border-primary/20 bg-card/50 backdrop-blur-sm">
             <div className="container py-3 space-y-2 text-sm text-right">
-              <button className="block w-full text-right py-1 text-foreground hover:text-primary transition-colors">
+              <button onClick={handleMenuDownload} className="block w-full text-right py-1 text-foreground hover:text-primary transition-colors">
                 منيو الكافي
               </button>
               <button className="block w-full text-right py-1 text-foreground hover:text-primary transition-colors">
@@ -121,14 +127,14 @@ export default function Home() {
               {/* Image */}
               <div className="relative h-48 lg:h-56 overflow-hidden bg-gradient-to-b from-black/20 to-black/40">
                 <img
-                  src="/manus-storage/coffee_hero_066d2dcb.png"
+                  src={assetPath("/manus-storage/coffee_hero_066d2dcb.png")}
                   alt="Caramel Latte with Chocolate Cake"
                   className="w-full h-full object-cover"
                 />
                 {/* Overlay gradient for text readability */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
 
-                {/* Price Badge - Fixed position for RTL consistency */}
+                {/* Price Badge */}
                 <div className="absolute bottom-4 right-4 flex flex-col items-center justify-center">
                   <div className="w-16 lg:w-20 h-16 lg:h-20 rounded-full border-2 lg:border-3 border-primary flex flex-col items-center justify-center bg-black/60 backdrop-blur-sm animate-pulse-soft">
                     <span className="text-lg lg:text-2xl font-bold text-primary">15</span>
@@ -169,7 +175,7 @@ export default function Home() {
                   مزيج مثالي من الكراميل والقهوة مع شريحة شوكولاتة فاخرة
                 </p>
 
-                {/* CTA Button - Added native variant mapping */}
+                {/* CTA Button */}
                 <Button
                   variant="default"
                   className="w-full font-semibold py-2 lg:py-3 rounded-lg transition-all duration-200 flex items-center justify-center gap-2 text-sm lg:text-base"
