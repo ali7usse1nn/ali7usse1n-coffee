@@ -20,7 +20,8 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground flex flex-col">
+    // Added dir="rtl" to support proper Arabic text flow and alignment
+    <div dir="rtl" className="min-h-screen bg-background text-foreground flex flex-col font-sans">
       {/* Header - Compact */}
       <header className="bg-background/80 backdrop-blur-md border-b border-primary/20 py-3 flex-shrink-0">
         <div className="container flex items-center justify-between">
@@ -51,14 +52,14 @@ export default function Home() {
         {/* Mobile Menu */}
         {isMenuOpen && (
           <div className="border-t border-primary/20 bg-card/50 backdrop-blur-sm">
-            <div className="container py-3 space-y-2 text-sm">
-              <button className="block w-full text-left py-1 text-foreground hover:text-primary transition-colors">
+            <div className="container py-3 space-y-2 text-sm text-right">
+              <button className="block w-full text-right py-1 text-foreground hover:text-primary transition-colors">
                 منيو الكافي
               </button>
-              <button className="block w-full text-left py-1 text-foreground hover:text-primary transition-colors">
+              <button className="block w-full text-right py-1 text-foreground hover:text-primary transition-colors">
                 عن الكافي
               </button>
-              <button className="block w-full text-left py-1 text-foreground hover:text-primary transition-colors">
+              <button className="block w-full text-right py-1 text-foreground hover:text-primary transition-colors">
                 اتصل بنا
               </button>
             </div>
@@ -93,14 +94,14 @@ export default function Home() {
 
             {/* Brand Name */}
             <div className="text-center">
-              <h1 className="text-3xl lg:text-4xl font-bold text-foreground">
+              <h1 className="text-3xl lg:text-4xl font-bold text-foreground tracking-wide">
                 Ali7usse1n
               </h1>
 
               {/* Decorative Line with Accent */}
               <div className="flex items-center justify-center gap-2 my-2">
                 <div className="w-8 lg:w-12 h-px bg-primary/40"></div>
-                <span className="text-primary text-sm lg:text-base font-semibold">COFFEE</span>
+                <span className="text-primary text-sm lg:text-base font-semibold tracking-widest">COFFEE</span>
                 <div className="w-8 lg:w-12 h-px bg-primary/40"></div>
               </div>
 
@@ -116,7 +117,7 @@ export default function Home() {
 
           {/* Right Side - Daily Offer Card */}
           <div className="flex justify-center animate-fade-in" style={{ animationDelay: "0.2s" }}>
-            <div className="luxury-card w-full max-w-sm overflow-hidden">
+            <div className="luxury-card w-full max-w-sm overflow-hidden rounded-xl border border-primary/10 shadow-xl">
               {/* Image */}
               <div className="relative h-48 lg:h-56 overflow-hidden bg-gradient-to-b from-black/20 to-black/40">
                 <img
@@ -125,11 +126,11 @@ export default function Home() {
                   className="w-full h-full object-cover"
                 />
                 {/* Overlay gradient for text readability */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
 
-                {/* Price Badge - Positioned at bottom left */}
-                <div className="absolute bottom-4 left-4 flex flex-col items-center justify-center">
-                  <div className="w-16 lg:w-20 h-16 lg:h-20 rounded-full border-2 lg:border-3 border-primary flex flex-col items-center justify-center bg-black/40 backdrop-blur-sm animate-pulse-soft">
+                {/* Price Badge - Fixed position for RTL consistency */}
+                <div className="absolute bottom-4 right-4 flex flex-col items-center justify-center">
+                  <div className="w-16 lg:w-20 h-16 lg:h-20 rounded-full border-2 lg:border-3 border-primary flex flex-col items-center justify-center bg-black/60 backdrop-blur-sm animate-pulse-soft">
                     <span className="text-lg lg:text-2xl font-bold text-primary">15</span>
                     <span className="text-xs text-primary mt-0.5">ريال</span>
                   </div>
@@ -149,7 +150,7 @@ export default function Home() {
 
                 {/* Offer Title */}
                 <h2 className="text-xl lg:text-2xl font-bold text-center text-foreground mb-2 leading-tight">
-                  لاتيه كرامیل
+                  لاتيه كراميل
                   <br />
                   <span className="text-sm lg:text-base font-normal text-primary/80 mt-1 block">
                     مع كيكة الشوكولاتة
@@ -165,12 +166,13 @@ export default function Home() {
 
                 {/* Description */}
                 <p className="text-center text-foreground/70 text-xs lg:text-sm leading-relaxed mb-4">
-                  مزيج مثالي من الكرامیل والقهوة مع شريحة شوكولاتة فاخرة
+                  مزيج مثالي من الكراميل والقهوة مع شريحة شوكولاتة فاخرة
                 </p>
 
-                {/* CTA Button */}
+                {/* CTA Button - Added native variant mapping */}
                 <Button
-                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold py-2 lg:py-3 rounded-lg transition-all duration-200 flex items-center justify-center gap-2 text-sm lg:text-base"
+                  variant="default"
+                  className="w-full font-semibold py-2 lg:py-3 rounded-lg transition-all duration-200 flex items-center justify-center gap-2 text-sm lg:text-base"
                   onClick={handleMenuDownload}
                 >
                   <span>منيو الكافي</span>
