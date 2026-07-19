@@ -3,11 +3,13 @@
 
 @custom-variant dark (&:is(.dark *));
 
-@theme inline {
+/* Tailwind v4 Configuration Variable Theme Map */
+@theme {
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+  
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -27,11 +29,13 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+  
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
   --color-chart-3: var(--chart-3);
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
+  
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar-primary: var(--sidebar-primary);
@@ -80,7 +84,7 @@
 }
 
 .dark {
-  /* Dark theme is default for this luxury coffee shop */
+  /* Dark theme setup */
   --primary: oklch(0.55 0.15 45);
   --primary-foreground: oklch(0.95 0.01 0);
   --sidebar-primary: oklch(0.55 0.15 45);
@@ -115,12 +119,35 @@
   --sidebar-ring: oklch(0.55 0.15 45);
 }
 
+/* Global Root Animation Keyframes */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse-soft {
+  0%, 100% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    /* Fixed variant call consistency for shadcn setups */
+    border-color: var(--border);
   }
   body {
-    @apply bg-background text-foreground;
+    background-color: var(--background);
+    color: var(--foreground);
     font-family: 'Lora', serif;
   }
   h1, h2, h3, h4, h5, h6 {
@@ -136,29 +163,16 @@
   select:not(:disabled),
   input[type="checkbox"]:not(:disabled),
   input[type="radio"]:not(:disabled) {
-    @apply cursor-pointer;
+    cursor: pointer;
   }
 }
 
 @layer components {
-  /**
-   * Custom container utility that centers content and adds responsive padding.
-   *
-   * This overrides Tailwind's default container behavior to:
-   * - Auto-center content (mx-auto)
-   * - Add responsive horizontal padding
-   * - Set max-width for large screens
-   *
-   * Usage: <div className="container">...</div>
-   *
-   * For custom widths, use max-w-* utilities directly:
-   * <div className="max-w-6xl mx-auto px-4">...</div>
-   */
   .container {
     width: 100%;
     margin-left: auto;
     margin-right: auto;
-    padding-left: 1rem; /* 16px - mobile padding */
+    padding-left: 1rem;
     padding-right: 1rem;
   }
 
@@ -167,49 +181,38 @@
     min-width: 0;
   }
 
-  /* Decorative divider lines with accent */
   .divider-line {
-    @apply h-px bg-primary/30;
+    height: 1px;
+    background-color: color-mix(in oklch, var(--primary) 30%, transparent);
   }
 
   .divider-accent {
-    @apply w-2 h-2 rounded-full bg-primary mx-2;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 9999px;
+    background-color: var(--primary);
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
   }
 
-  /* Luxury card styling */
   .luxury-card {
-    @apply bg-card rounded-lg overflow-hidden shadow-lg transition-all duration-200 hover:shadow-2xl;
+    background-color: var(--card);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .luxury-card:hover {
+    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
   }
 
-  /* Gold text accent */
   .text-gold {
-    @apply text-primary;
-  }
-
-  /* Smooth fade-in animation */
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    color: var(--primary);
   }
 
   .animate-fade-in {
-    animation: fadeIn 0.6s ease-out;
-  }
-
-  /* Pulse animation for badges */
-  @keyframes pulse-soft {
-    0%, 100% {
-      opacity: 0.8;
-    }
-    50% {
-      opacity: 1;
-    }
+    animation: fadeIn 0.6s ease-out forwards;
   }
 
   .animate-pulse-soft {
@@ -218,16 +221,16 @@
 
   @media (min-width: 640px) {
     .container {
-      padding-left: 1.5rem; /* 24px - tablet padding */
+      padding-left: 1.5rem;
       padding-right: 1.5rem;
     }
   }
 
   @media (min-width: 1024px) {
     .container {
-      padding-left: 2rem; /* 32px - desktop padding */
+      padding-left: 2rem;
       padding-right: 2rem;
-      max-width: 1280px; /* Standard content width */
+      max-width: 1280px;
     }
   }
 }
